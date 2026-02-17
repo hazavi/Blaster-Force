@@ -208,8 +208,15 @@ func add_buyable_weapon_card(shop_index: int):
 
 func _on_upgrade_weapon(weapon_index: int, current_level: int = 0):
 	print("Upgrade weapon at index: ", weapon_index, " (level: ", current_level, ")")
+	
+	# Make sure this weapon is active
 	upgrade_manager.switch_weapon(weapon_index)
-	show_upgrade_menu()
+	
+	# ✅ NEW: Directly upgrade all stats (no popup!)
+	if upgrade_manager.upgrade_all_stats():
+		print("✅ All stats upgraded!")
+	else:
+		print("❌ Not enough coins!")
 
 
 func _on_equip_weapon(weapon_index: int):

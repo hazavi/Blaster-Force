@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://r1sps030g7xa"]
+[gd_scene load_steps=8 format=3 uid="uid://r1sps030g7xa"]
 
 [ext_resource type="Shader" uid="uid://hayrtmfb5od" path="res://scenes/ui/shop.gdshader" id="1_ahsc1"]
 [ext_resource type="Script" uid="uid://dsgcjhdpfjvw2" path="res://scenes/ui/shop.gd" id="1_kdvrj"]
@@ -6,8 +6,10 @@
 [ext_resource type="FontFile" uid="uid://c3akd7isgdvg6" path="res://assets/Fonts/Poppins-Bold.ttf" id="3_85p0y"]
 [ext_resource type="FontFile" uid="uid://cfa5c0prw4wdk" path="res://assets/Fonts/Poppins-ExtraBold.ttf" id="4_85p0y"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8v20v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kdvrj"]
 shader = ExtResource("1_ahsc1")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_atewb"]
 
 [node name="Shop" type="Control"]
 layout_mode = 3
@@ -19,18 +21,20 @@ grow_vertical = 2
 script = ExtResource("1_kdvrj")
 
 [node name="Background" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_8v20v")
+material = SubResource("ShaderMaterial_kdvrj")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.103743605, 0.103743516, 0.103743516, 1)
 
 [node name="TopBar" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_right = -23.0
 offset_bottom = 60.0
 grow_horizontal = 2
 theme_override_constants/separation = 20
@@ -38,6 +42,7 @@ alignment = 2
 
 [node name="CoinsPanel" type="PanelContainer" parent="TopBar"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_atewb")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TopBar/CoinsPanel"]
 layout_mode = 2
@@ -72,7 +77,9 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 29.0
 offset_top = -502.0
+offset_right = -25.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 0

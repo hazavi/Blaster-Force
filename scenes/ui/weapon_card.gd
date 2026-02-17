@@ -45,13 +45,20 @@ func setup_owned(data: Dictionary, index: int, is_active: bool):
 	
 	# Button with price
 	if is_active:
-		var cheapest_cost = get_cheapest_upgrade_cost(data)
-		action_button.text = "⬆️ UPGRADE - %d Coins" % cheapest_cost
+		var total_cost = get_total_upgrade_cost()
+		action_button.text = "⬆️ UPGRADE - %d Coins" % total_cost
 	else:
 		action_button.text = "✅ EQUIP"
 	
 	await load_gun_model(data.name)
 
+func get_total_upgrade_cost() -> int:
+	"""Get total cost to upgrade all 4 stats"""
+	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
+	if not upgrade_manager:
+		return 100
+	
+	return upgrade_manager.get_upgrade_all_cost()
 
 func setup_buyable(data: Dictionary, shop_index: int):
 	weapon_data = data
@@ -73,19 +80,12 @@ func setup_buyable(data: Dictionary, shop_index: int):
 
 
 func get_cheapest_upgrade_cost(weapon_data: Dictionary) -> int:
+	# This function is no longer used, but keeping for compatibility
 	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
 	if not upgrade_manager:
 		return 50
 	
-	var costs = [
-		upgrade_manager.get_upgrade_cost("damage"),
-		upgrade_manager.get_upgrade_cost("fire_rate"),
-		upgrade_manager.get_upgrade_cost("ammo"),
-		upgrade_manager.get_upgrade_cost("range")
-	]
-	
-	costs.sort()
-	return costs[0]
+	return upgrade_manager.get_upgrade_all_cost()
 
 
 func load_gun_model(weapon_name_str: String):

@@ -20,7 +20,7 @@ var shop_weapons = [
 		"name": "Blaster-G",
 		"cost": 250,
 		"damage": 15,
-		"fire_rate": 0.15,
+		"fire_rate": 0.8,
 		"mag_size": 30,
 		"range": 8.0,
 		"owned": false
@@ -46,10 +46,10 @@ const UPGRADE_COSTS = {
 
 # Upgrade increments
 const UPGRADE_INCREMENTS = {
-	"damage": 5,
-	"fire_rate": 0.05,
-	"ammo": 6,
-	"range": 1.5
+	"damage": 1,
+	"fire_rate": 0.02,
+	"ammo": 2,
+	"range": 0.02
 }
 
 signal coins_changed  # Changed from gold_changed
@@ -110,9 +110,9 @@ func initialize_default_data():
 	owned_weapons.clear()
 	owned_weapons.append({
 		"name": "Blaster-C",
-		"damage": 20,
-		"fire_rate": 0.3,
-		"mag_size": 12,
+		"damage": 15,
+		"fire_rate": 1,
+		"mag_size": 10,
 		"range": 6.0,
 		"damage_level": 0,
 		"fire_rate_level": 0,
@@ -158,12 +158,72 @@ func get_active_weapon_index() -> int:
 # ============================================
 # UPGRADE FUNCTIONS
 # ============================================
+func can_afford_upgrade_all() -> bool:
+	"""Check if player can afford upgrading all 4 stats"""
+	var total_cost = 0
+	total_cost += get_upgrade_cost("damage")
+	total_cost += get_upgrade_cost("fire_rate")
+	total_cost += get_upgrade_cost("ammo")
+	total_cost += get_upgrade_cost("range")
+	return coins >= total_cost
+
+
+func upgrade_all_stats() -> bool:
+	"""Upgrade all 4 stats at once"""
+	if not can_afford_upgrade_all():
+		print("❌ Not enough coins to upgrade all stats!")
+		return false
+	
+	var total_cost = 0
+	total_cost += get_upgrade_cost("damage")
+	total_cost += get_upgrade_cost("fire_rate")
+	total_cost += get_upgrade_cost("ammo")
+	total_cost += get_upgrade_cost("range")
+	
+	# Deduct total cost
+	coins -= total_cost
+	
+	var weapon = get_current_weapon()
+	
+	# Upgrade damage
+	weapon.damage += UPGRADE_INCREMENTS.damage
+	weapon.damage_level += 1
+	
+	# Upgrade fire rate (faster = lower number)
+	weapon.fire_rate = max(0.05, weapon.fire_rate - UPGRADE_INCREMENTS.fire_rate)
+	weapon.fire_rate_level += 1
+	
+	# Upgrade ammo
+	weapon.mag_size += UPGRADE_INCREMENTS.ammo
+	weapon.ammo_level += 1
+	
+	# Upgrade range
+	weapon.range += UPGRADE_INCREMENTS.range
+	weapon.range_level += 1
+	
+	coins_changed.emit()
+	weapon_upgraded.emit()
+	
+	print("✅ Upgraded ALL stats! Cost: ", total_cost, " coins")
+	
+	save_progress()
+	return true
+
+
+func get_upgrade_all_cost() -> int:
+	"""Get total cost to upgrade all 4 stats"""
+	var total = 0
+	total += get_upgrade_cost("damage")
+	total += get_upgrade_cost("fire_rate")
+	total += get_upgrade_cost("ammo")
+	total += get_upgrade_cost("range")
+	return total
+
 
 func can_afford_upgrade(stat_name: String) -> bool:
 	var cost = get_upgrade_cost(stat_name)
-	return coins >= cost  # Changed from gold
-
-
+	return coins >= cost
+	
 func upgrade_stat(stat_name: String) -> bool:
 	if not can_afford_upgrade(stat_name):
 		return false

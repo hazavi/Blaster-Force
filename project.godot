@@ -21,6 +21,7 @@ SaveManager="*res://scripts/save_manager.gd"
 GameManager="*res://scripts/game_manager.gd"
 WeaponUpgradeManager="*res://scripts/weapon_upgrade_manager.gd"
 PauseHandler="*res://scripts/pause_handler.gd"
+DebugCheats="*res://scripts/debug_cheats.gd"
 
 [display]
 
