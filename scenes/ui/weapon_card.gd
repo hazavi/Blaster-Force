@@ -46,7 +46,7 @@ func setup_owned(data: Dictionary, index: int, is_active: bool):
 	# Button with price
 	if is_active:
 		var cheapest_cost = get_cheapest_upgrade_cost(data)
-		action_button.text = "⬆️ UPGRADE - %d Gold" % cheapest_cost
+		action_button.text = "⬆️ UPGRADE - %d Coins" % cheapest_cost
 	else:
 		action_button.text = "✅ EQUIP"
 	
@@ -67,7 +67,7 @@ func setup_buyable(data: Dictionary, shop_index: int):
 	ammo_label.text = "🔫 Ammo: %d" % data.get("mag_size", 0)
 	range_label.text = "🎯 Range: %.1fm" % data.get("range", 0.0)
 	
-	action_button.text = "💰 BUY - %d Gold" % data.get("cost", 0)
+	action_button.text = "🪙 BUY - %d Coins" % data.get("cost", 0)
 	
 	await load_gun_model(data.name)
 

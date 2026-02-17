@@ -4,8 +4,9 @@ extends Node
 # WEAPON UPGRADE MANAGER - Persistent system
 # ============================================
 
-# Currency
-var gold: int = 500  # Starting gold
+# Currency (COINS ONLY!)
+var coins: int = 0  # Changed from gold
+var total_coins_collected: int = 0  # Track total earned
 
 # All owned weapons (array of weapon data)
 var owned_weapons: Array[Dictionary] = []
@@ -19,7 +20,7 @@ var shop_weapons = [
 		"name": "Blaster-G",
 		"cost": 250,
 		"damage": 15,
-		"fire_rate": 0.15,  # Faster!
+		"fire_rate": 0.15,
 		"mag_size": 30,
 		"range": 8.0,
 		"owned": false
@@ -28,7 +29,7 @@ var shop_weapons = [
 		"name": "Blaster-Q",
 		"cost": 400,
 		"damage": 35,
-		"fire_rate": 0.8,  # Slower but powerful
+		"fire_rate": 0.8,
 		"mag_size": 6,
 		"range": 4.0,
 		"owned": false
@@ -46,19 +47,67 @@ const UPGRADE_COSTS = {
 # Upgrade increments
 const UPGRADE_INCREMENTS = {
 	"damage": 5,
-	"fire_rate": 0.05,  # Reduces cooldown
+	"fire_rate": 0.05,
 	"ammo": 6,
 	"range": 1.5
 }
 
-signal gold_changed
+signal coins_changed  # Changed from gold_changed
 signal weapon_upgraded
 signal weapon_purchased
 signal weapon_switched
 
 
 func _ready():
-	# Initialize with starter weapon
+	# Load saved data
+	load_from_save()
+	
+	print("=== WEAPON UPGRADE MANAGER READY ===")
+	print("Coins: ", coins)
+	print("Total Coins Collected: ", total_coins_collected)
+	print("Starting Weapon: ", owned_weapons[0].name if owned_weapons.size() > 0 else "None")
+
+
+func load_from_save():
+	"""Load data from SaveManager"""
+	var save_manager = get_node_or_null("/root/SaveManager")
+	if not save_manager:
+		print("⚠️ SaveManager not found, using defaults")
+		coins = 50  # Default starting coins
+		initialize_default_data()
+		return
+	
+	var save_data = save_manager.load_game()
+	
+	# Load coins FIRST with fallback
+	coins = save_data.get("coins", 50)
+	total_coins_collected = save_data.get("statistics", {}).get("total_coins_collected", 0)
+	
+	# Load owned weapons
+	var saved_weapons = save_data.get("owned_weapons", [])
+	if saved_weapons.size() > 0:
+		owned_weapons.clear()
+		for weapon_data in saved_weapons:
+			owned_weapons.append(weapon_data.duplicate(true))
+	else:
+		# First time - add starter weapon only
+		initialize_default_data()
+	
+	# Load active weapon
+	active_weapon_index = save_data.get("active_weapon_index", 0)
+	
+	# Load shop weapons
+	var saved_shop = save_data.get("shop_weapons", [])
+	if saved_shop.size() == shop_weapons.size():
+		for i in range(shop_weapons.size()):
+			shop_weapons[i].owned = saved_shop[i].get("owned", false)
+	
+	print("📁 Loaded: ", owned_weapons.size(), " weapons, ", coins, " coins")
+
+
+func initialize_default_data():
+	"""Set up default starter weapon (DOES NOT TOUCH COINS)"""
+	owned_weapons.clear()
 	owned_weapons.append({
 		"name": "Blaster-C",
 		"damage": 20,
@@ -70,10 +119,12 @@ func _ready():
 		"ammo_level": 0,
 		"range_level": 0
 	})
-	
-	print("=== WEAPON UPGRADE MANAGER READY ===")
-	print("Gold: ", gold)
-	print("Starting Weapon: ", owned_weapons[0].name)
+
+func save_progress():
+	"""Save current state"""
+	var save_manager = get_node_or_null("/root/SaveManager")
+	if save_manager:
+		save_manager.save_game()
 
 
 # ============================================
@@ -81,23 +132,21 @@ func _ready():
 # ============================================
 
 func get_current_weapon() -> Dictionary:
-	"""Get currently equipped weapon"""
 	if active_weapon_index >= 0 and active_weapon_index < owned_weapons.size():
 		return owned_weapons[active_weapon_index]
-	return owned_weapons[0]  # Fallback to first weapon
+	return owned_weapons[0]
 
 
 func get_owned_weapons() -> Array[Dictionary]:
-	"""Get all owned weapons"""
 	return owned_weapons
 
 
 func switch_weapon(weapon_index: int):
-	"""Switch to a different owned weapon"""
 	if weapon_index >= 0 and weapon_index < owned_weapons.size():
 		active_weapon_index = weapon_index
 		weapon_switched.emit()
 		print("Switched to: ", owned_weapons[weapon_index].name)
+		save_progress()
 		return true
 	return false
 
@@ -112,7 +161,7 @@ func get_active_weapon_index() -> int:
 
 func can_afford_upgrade(stat_name: String) -> bool:
 	var cost = get_upgrade_cost(stat_name)
-	return gold >= cost
+	return coins >= cost  # Changed from gold
 
 
 func upgrade_stat(stat_name: String) -> bool:
@@ -120,7 +169,7 @@ func upgrade_stat(stat_name: String) -> bool:
 		return false
 	
 	var cost = get_upgrade_cost(stat_name)
-	gold -= cost
+	coins -= cost  # Changed from gold
 	
 	var weapon = get_current_weapon()
 	
@@ -138,18 +187,18 @@ func upgrade_stat(stat_name: String) -> bool:
 			weapon.range += UPGRADE_INCREMENTS.range
 			weapon.range_level += 1
 	
-	gold_changed.emit()
+	coins_changed.emit()  # Changed signal
 	weapon_upgraded.emit()
 	
 	print("Upgraded ", stat_name, " to level ", get_upgrade_level(stat_name))
+	
+	save_progress()
 	return true
 
 
 func get_upgrade_cost(stat_name: String) -> int:
 	var level = get_upgrade_level(stat_name)
 	var base_cost = UPGRADE_COSTS[stat_name]
-	
-	# Cost scales: base * (1 + level * 0.5)
 	return int(base_cost * (1.0 + level * 0.5))
 
 
@@ -182,7 +231,7 @@ func can_afford_weapon(weapon_index: int) -> bool:
 		return false
 	
 	var weapon = shop_weapons[weapon_index]
-	return gold >= weapon.cost and not weapon.owned
+	return coins >= weapon.cost and not weapon.owned  # Changed from gold
 
 
 func buy_weapon(weapon_index: int) -> bool:
@@ -190,10 +239,9 @@ func buy_weapon(weapon_index: int) -> bool:
 		return false
 	
 	var shop_weapon = shop_weapons[weapon_index]
-	gold -= shop_weapon.cost
+	coins -= shop_weapon.cost  # Changed from gold
 	shop_weapon.owned = true
 	
-	# Add to owned weapons
 	var new_weapon = {
 		"name": shop_weapon.name,
 		"damage": shop_weapon.damage,
@@ -207,14 +255,15 @@ func buy_weapon(weapon_index: int) -> bool:
 	}
 	owned_weapons.append(new_weapon)
 	
-	# Auto-equip new weapon
 	active_weapon_index = owned_weapons.size() - 1
 	
-	gold_changed.emit()
+	coins_changed.emit()  # Changed signal
 	weapon_purchased.emit()
 	weapon_switched.emit()
 	
 	print("Purchased and equipped: ", shop_weapon.name)
+	
+	save_progress()
 	return true
 
 
@@ -223,7 +272,6 @@ func buy_weapon(weapon_index: int) -> bool:
 # ============================================
 
 func apply_to_gun(gun: Node):
-	"""Apply current weapon stats to gun"""
 	if gun == null:
 		return
 	
@@ -236,12 +284,10 @@ func apply_to_gun(gun: Node):
 	
 	print("Applied base weapon stats to gun: ", weapon.name)
 	
-	# Find player by traversing up the tree
 	var player = null
 	var current_node = gun.get_parent()
 	
-	# Traverse up to find the player (CharacterBody3D with "player" group)
-	for i in range(10):  # Max 10 levels up
+	for i in range(10):
 		if current_node == null:
 			break
 		
@@ -255,12 +301,10 @@ func apply_to_gun(gun: Node):
 		print("Warning: Could not find player node")
 		return
 	
-	# Update shoot range on player
 	if "shoot_range" in player:
 		player.shoot_range = weapon.range
 		print("Updated player shoot_range to: ", weapon.range)
 		
-		# Update shoot range area collision shape
 		var shoot_area = player.get_node_or_null("ShootRange")
 		if shoot_area and shoot_area is Area3D:
 			var collision = shoot_area.get_node_or_null("CollisionShape3D")
@@ -268,7 +312,6 @@ func apply_to_gun(gun: Node):
 				collision.shape.radius = weapon.range
 				print("Updated ShootRange radius to: ", weapon.range)
 		
-		# Update range indicator visual
 		var range_indicator = player.get_node_or_null("RangeIndicator")
 		if range_indicator and range_indicator is MeshInstance3D:
 			var mesh = range_indicator.mesh
@@ -281,13 +324,16 @@ func apply_to_gun(gun: Node):
 
 
 # ============================================
-# GOLD MANAGEMENT
+# COINS MANAGEMENT (Changed from Gold)
 # ============================================
 
-func add_gold(amount: int):
-	gold += amount
-	gold_changed.emit()
+func add_coins(amount: int):
+	coins += amount
+	total_coins_collected += amount
+	coins_changed.emit()
+	print("🪙 Added ", amount, " coins. Total: ", coins)
+	save_progress()
 
 
-func get_gold() -> int:
-	return gold
+func get_coins() -> int:
+	return coins

@@ -3,7 +3,6 @@ extends Control
 var upgrade_manager: Node
 
 # UI References
-@onready var gold_label = $TopBar/GoldPanel/HBoxContainer/GoldLabel
 @onready var coins_label = $TopBar/CoinsPanel/HBoxContainer/CoinsLabel
 @onready var weapon_container = $WeaponScroll/WeaponContainer
 @onready var back_button = $BackButton
@@ -38,13 +37,13 @@ func _ready():
 		print("Make sure it's added to Autoload in Project Settings!")
 		return
 	
-	print("✅ WeaponUpgradeManager found!")
-	print("  - Gold: ", upgrade_manager.get_gold())
-	print("  - Owned weapons: ", upgrade_manager.get_owned_weapons().size())
-	print("  - Shop weapons: ", upgrade_manager.shop_weapons.size())
+		print("✅ WeaponUpgradeManager found!")
+		print("  - Coins: ", upgrade_manager.coins)  # Should show 50 or your collected amount
+		print("  - get_coins(): ", upgrade_manager.get_coins())  # Should match above
+		print("  - Owned weapons: ", upgrade_manager.get_owned_weapons().size())
 	
 	# Connect signals
-	upgrade_manager.gold_changed.connect(_request_update)
+	upgrade_manager.coins_changed.connect(_request_update)
 	upgrade_manager.weapon_upgraded.connect(_request_update)
 	upgrade_manager.weapon_purchased.connect(_request_update)
 	upgrade_manager.weapon_switched.connect(_request_update)
@@ -82,13 +81,10 @@ func _upgrade_stat(stat: String, popup: AcceptDialog):
 func update_ui():
 	print("\n=== UPDATING SHOP UI ===")
 	
-	# Update currency displays
-	if gold_label:
-		gold_label.text = str(upgrade_manager.get_gold())
-		print("✅ Updated gold label: ", gold_label.text)
-	
-	if coins_label:
-		coins_label.text = "0"
+	# ✅ FIX: Update coins display with actual coins from upgrade manager
+	if coins_label and upgrade_manager:
+		coins_label.text = str(upgrade_manager.get_coins())
+		print("✅ Updated coins label: ", coins_label.text)
 	
 	# Clear existing cards
 	var old_count = weapon_container.get_child_count()
@@ -251,7 +247,7 @@ func show_upgrade_menu():
 		else:
 			value_str = str(int(value))
 		
-		btn.text = "%s %s Lv.%d (%s) - Cost: %d Gold" % [stat.icon, stat.label, level, value_str, cost]
+		btn.text = "%s %s Lv.%d (%s) - Cost: %d Coins" % [stat.icon, stat.label, level, value_str, cost]
 		btn.custom_minimum_size.y = 50
 		btn.disabled = not upgrade_manager.can_afford_upgrade(stat.name)
 		btn.pressed.connect(_upgrade_stat.bind(stat.name, popup))

@@ -257,6 +257,12 @@ func die():
 	is_dead = true
 	print("Player died!")
 	
+	# ✨ Convert coins and SAVE immediately
+	convert_coins_to_gold()
+	
+	# ✅ Ensure save happens before any scene changes
+	await get_tree().process_frame
+	
 	# Play death animation
 	if anim_player != null and anim_player.has_animation("Player/Death"):
 		play_anim("Player/Death")
@@ -283,6 +289,24 @@ func die():
 		await get_tree().create_timer(2.0).timeout
 		get_tree().reload_current_scene()
 
+func convert_coins_to_gold():
+	"""Convert collected coins to permanent saved coins"""
+	if coins <= 0:
+		return
+	
+	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
+	if upgrade_manager:
+		upgrade_manager.add_coins(coins)
+		print("🪙 Saved ", coins, " coins! New total: ", upgrade_manager.get_coins())
+		
+		# ✅ CRITICAL: Save to disk immediately
+		var save_manager = get_node_or_null("/root/SaveManager")
+		if save_manager:
+			save_manager.save_game()
+			print("💾 Progress saved to disk!")
+		
+		coins = 0
+		coins_changed.emit()
 
 func add_coins(amount):
 	coins = coins + amount

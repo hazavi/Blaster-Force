@@ -17,9 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SaveManager="*res://scripts/save_manager.gd"
 GameManager="*res://scripts/game_manager.gd"
-PauseHandler="*res://scripts/pause_handler.gd"
 WeaponUpgradeManager="*res://scripts/weapon_upgrade_manager.gd"
+PauseHandler="*res://scripts/pause_handler.gd"
 
 [display]
 

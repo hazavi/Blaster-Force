@@ -22,7 +22,32 @@ func _ready():
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
+	# ✅ NEW: Save coins when level completes
+	save_player_coins()
+	
 	display_stats()
+
+
+func save_player_coins():
+	"""Save player's collected coins to persistent storage"""
+	var player = get_tree().get_first_node_in_group("player")
+	if not player or player.coins <= 0:
+		return
+	
+	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
+	if upgrade_manager:
+		upgrade_manager.add_coins(player.coins)
+		print("🪙 Level Complete: Saved ", player.coins, " coins! New total: ", upgrade_manager.get_coins())
+		
+		# Save to disk immediately
+		var save_manager = get_node_or_null("/root/SaveManager")
+		if save_manager:
+			save_manager.save_game()
+			print("💾 Progress saved to disk!")
+		
+		# Reset player coins (they've been transferred)
+		player.coins = 0
+		player.coins_changed.emit()
 
 
 func find_ui_nodes():
@@ -62,10 +87,11 @@ func try_get_node(paths: Array) -> Node:
 func display_stats():
 	var player = get_tree().get_first_node_in_group("player")
 	var game_manager = get_node_or_null("/root/GameManager")
+	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
 	
-	# Coins
-	if coins_label and player:
-		coins_label.text = "Coins Collected: %d" % player.coins
+	# ✅ Show TOTAL coins (saved + collected this run)
+	if coins_label and upgrade_manager:
+		coins_label.text = "🪙 Total Coins: %d" % upgrade_manager.get_coins()
 	
 	# Time
 	if time_label and game_manager:

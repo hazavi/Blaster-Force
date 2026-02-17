@@ -65,7 +65,7 @@ theme_override_fonts/font = ExtResource("2_f6eus")
 theme_override_font_sizes/font_size = 28
 text = "RESTART"
 
-[node name="MainMenuButton" type="Button" parent="Panel/Content/ButtonContainer"]
+[node name="MenuButton" type="Button" parent="Panel/Content/ButtonContainer"]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_f6eus")

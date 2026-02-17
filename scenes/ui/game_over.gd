@@ -1,9 +1,12 @@
 extends Control
 
 var coins_label: Label = null
-var kills_label: Label = null  # NEW
+var kills_label: Label = null
+var gold_earned_label: Label = null  # NEW
 var retry_button: Button = null
 var menu_button: Button = null
+
+var coins_earned: int = 0  # NEW
 
 
 func _ready():
@@ -38,6 +41,13 @@ func find_ui_nodes():
 		"KillsLabel"
 	])
 	
+	# NEW: Try to find gold earned label
+	gold_earned_label = try_get_node([
+		"Panel/Content/StatsContainer/GoldEarnedLabel",
+		"VBoxContainer/GoldEarnedLabel",
+		"GoldEarnedLabel"
+	])
+	
 	retry_button = try_get_node([
 		"Panel/Content/ButtonContainer/RetryButton",
 		"VBoxContainer/RetryButton",
@@ -62,17 +72,19 @@ func try_get_node(paths: Array) -> Node:
 func display_stats():
 	var player = get_tree().get_first_node_in_group("player")
 	var game_manager = get_node_or_null("/root/GameManager")
+	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
 	
-	# Coins COLLECTED (not lost!)
-	if coins_label:
-		if player:
-			coins_label.text = "Coins: %d" % player.coins
-		else:
-			coins_label.text = "Coins: 0"
+	# Show total coins
+	if upgrade_manager and coins_label:
+		coins_label.text = "🪙 Total Coins: %d" % upgrade_manager.get_coins()
 	
 	# Kills
 	if kills_label and game_manager:
 		kills_label.text = "Kills: %d" % game_manager.get_enemies_killed()
+	
+	# Gold earned label can show coins saved this run
+	if gold_earned_label:
+		gold_earned_label.text = "💾 Progress Saved!"
 
 
 func _on_retry_pressed():
