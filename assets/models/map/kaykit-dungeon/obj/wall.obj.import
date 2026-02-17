@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://buwtlje37vhdn"
+path="res://.godot/imported/wall.obj-6294b9035e5db49da3caa677e0f3458f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/wall.obj-6294b9035e5db49da3caa677e0f3458f.mesh"]
+
+source_file="res://assets/models/map/kaykit-dungeon/obj/wall.obj"
+dest_files=["res://.godot/imported/wall.obj-6294b9035e5db49da3caa677e0f3458f.mesh", "res://.godot/imported/wall.obj-6294b9035e5db49da3caa677e0f3458f.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

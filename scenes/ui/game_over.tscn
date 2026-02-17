@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://74k82m4dqa1r"]
+
+[ext_resource type="Script" uid="uid://6a6d2ahu6bwp" path="res://scenes/ui/game_over.gd" id="1_vfrx6"]
+[ext_resource type="FontFile" uid="uid://xf3kbuv42dt" path="res://assets/Fonts/Poppins-Black.ttf" id="1_x6o8e"]
+[ext_resource type="FontFile" uid="uid://bjp3oroblg73x" path="res://assets/Fonts/Poppins-Medium.ttf" id="2_vfrx6"]
+[ext_resource type="FontFile" uid="uid://cfa5c0prw4wdk" path="res://assets/Fonts/Poppins-ExtraBold.ttf" id="3_o6b8n"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vfrx6")
+
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14733289, 0, 0, 0.90000004)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="TitleLabel" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_x6o8e")
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_vfrx6")
+theme_override_font_sizes/font_size = 24
+text = "You died!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsContainer" type="VBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+
+[node name="CoinsLabel" type="Label" parent="Panel/Content/StatsContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_vfrx6")
+theme_override_font_sizes/font_size = 24
+text = "Coins Collected: 0"
+horizontal_alignment = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="Panel/Content/ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_o6b8n")
+theme_override_font_sizes/font_size = 28
+text = "RETRY"
+
+[node name="MenuButton" type="Button" parent="Panel/Content/ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_o6b8n")
+theme_override_font_sizes/font_size = 28
+text = "MAIN MENU"

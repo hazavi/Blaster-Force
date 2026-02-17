@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqmrdgkk5l67l"]
+
+[ext_resource type="Script" uid="uid://crvcemhufup7n" path="res://scenes/ui/weapon_card.gd" id="1_phxxg"]
+[ext_resource type="PackedScene" uid="uid://ddg51yhkuht1s" path="res://scenes/ui/gun_preview.tscn" id="2_243ac"]
+[ext_resource type="FontFile" uid="uid://bjp3oroblg73x" path="res://assets/Fonts/Poppins-Medium.ttf" id="3_ut8i4"]
+[ext_resource type="FontFile" uid="uid://xf3kbuv42dt" path="res://assets/Fonts/Poppins-Black.ttf" id="4_nlvka"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phxxg"]
+bg_color = Color(0.11764706, 0.13725491, 0.19607843, 0.9019608)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.84313726, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+
+[node name="WeaponCard" type="PanelContainer"]
+custom_minimum_size = Vector2(280, 420)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_phxxg")
+script = ExtResource("1_phxxg")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GunViewport" type="SubViewportContainer" parent="Content"]
+custom_minimum_size = Vector2(260, 200)
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="Content/GunViewport"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(260, 200)
+render_target_update_mode = 4
+
+[node name="GunPreview" parent="Content/GunViewport/SubViewport" instance=ExtResource("2_243ac")]
+
+[node name="WeaponName" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ut8i4")
+theme_override_font_sizes/font_size = 24
+text = "Blaster-C"
+horizontal_alignment = 1
+
+[node name="LevelBadge" type="PanelContainer" parent="Content"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/LevelBadge"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Content/LevelBadge/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_nlvka")
+theme_override_font_sizes/font_size = 18
+text = "LEVEL 1"
+
+[node name="StatsContainer" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="DamageLabel" type="Label" parent="Content/StatsContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ut8i4")
+theme_override_font_sizes/font_size = 16
+text = "💥 Damage: 20"
+
+[node name="FireRateLabel" type="Label" parent="Content/StatsContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ut8i4")
+theme_override_font_sizes/font_size = 16
+text = "⚡ Fire Rate: 0.3s"
+
+[node name="AmmoLabel" type="Label" parent="Content/StatsContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ut8i4")
+theme_override_font_sizes/font_size = 16
+text = "🔫 Ammo: 12"
+
+[node name="RangeLabel" type="Label" parent="Content/StatsContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ut8i4")
+theme_override_font_sizes/font_size = 16
+text = "🎯 Range: 6m"
+
+[node name="ActionButton" type="Button" parent="Content"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_nlvka")
+theme_override_font_sizes/font_size = 22
+text = "💰 UPGRADE - 50"

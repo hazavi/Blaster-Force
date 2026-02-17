@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl6mcwuws340w"]
+
+[ext_resource type="PackedScene" uid="uid://b2ndwsdviuuxd" path="res://assets/models/enemy/characters/fbx/Skeleton_Rogue.fbx" id="1_xunjl"]
+[ext_resource type="PackedScene" uid="uid://d2l2staub54bi" path="res://assets/models/weapons/Wand.glb" id="2_polic"]
+
+[node name="Skeleton_Rogue" instance=ExtResource("1_xunjl")]
+
+[node name="Skeleton_Rogue_Cape" parent="Rig_Medium/Skeleton3D" index="0"]
+transform = Transform3D(1, 2.0194838e-28, 1.4210855e-14, -6.2117594e-22, 0.99999994, 4.3711385e-08, -1.4210855e-14, -4.371138e-08, 1, 1.4154976e-28, 0.9726289, -4.2514955e-08)
+bone_idx = 3
+
+[node name="Skeleton_Rogue_Hood" parent="Rig_Medium/Skeleton3D" index="1"]
+transform = Transform3D(1, 2.019484e-28, 1.4210855e-14, -6.2117604e-22, 0.99999994, 4.3711392e-08, -1.4210855e-14, -4.371139e-08, 1, 1.8411523e-28, 1.2414254, -5.4264426e-08)
+bone_idx = 14
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Rig_Medium/Skeleton3D" index="10"]
+transform = Transform3D(-0.9999991, 5.205474e-07, -7.381588e-07, -8.2731805e-07, -4.4188886e-07, 0.99999976, 4.3859185e-07, 0.9999992, 4.241387e-07, -0.8831325, 1.0492609, -7.484147e-07)
+bone_name = "handslot.r"
+bone_idx = 13
+
+[node name="Wand" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("2_polic")]
+transform = Transform3D(-0.49999997, 0, -7.549787e-08, 0, 0.49999997, 1.4210855e-14, 7.549787e-08, -2.842171e-14, -0.5, -0.055673957, 7.1986506e-10, 0.0506531)

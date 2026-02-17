@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cmb7ma1qbdsfo"
+path="res://.godot/imported/resourceStone.obj-ff4465153ebbe9da1a3d75ad731880dd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/resourceStone.obj-ff4465153ebbe9da1a3d75ad731880dd.mesh"]
+
+source_file="res://resources/decor_blocks/resourceStone.obj"
+dest_files=["res://.godot/imported/resourceStone.obj-ff4465153ebbe9da1a3d75ad731880dd.mesh", "res://.godot/imported/resourceStone.obj-ff4465153ebbe9da1a3d75ad731880dd.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjeqblvijufr7"]
+
+[ext_resource type="PackedScene" uid="uid://j6q57yyu80ju" path="res://assets/models/adventurer/gltf/Barbarian.glb" id="1_bdofn"]
+[ext_resource type="PackedScene" uid="uid://dere3c3alw15x" path="res://scenes/player/gun.tscn" id="2_54yf4"]
+
+[node name="Barbarian" instance=ExtResource("1_bdofn")]
+
+[node name="HandAttachment" type="BoneAttachment3D" parent="Rig_Medium/Skeleton3D" index="7"]
+transform = Transform3D(-0.999999, 4.6839318e-07, 4.5751068e-07, 3.9800034e-07, -5.8875344e-07, 0.99999946, 3.9761645e-07, 0.99999946, 5.358822e-07, -0.8831323, 1.0492611, -7.2884757e-07)
+bone_name = "handslot.r"
+bone_idx = 14
+
+[node name="GunPivot" type="Node3D" parent="Rig_Medium/Skeleton3D/HandAttachment" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1.0000002, 0, 0.9999999, 0, 1.0000002, 0, -4.37114e-08, -0.030317202, 0.0864716, -0.25214258)
+
+[node name="Gun" parent="Rig_Medium/Skeleton3D/HandAttachment/GunPivot" index="0" instance=ExtResource("2_54yf4")]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.9999999, 0, 0, 0, 0.99999994, 0.2931828, -5.3290697e-15, -0.29516426)

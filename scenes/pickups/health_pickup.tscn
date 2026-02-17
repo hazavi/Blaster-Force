@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://do5pdba1qf7u8"]
+
+[ext_resource type="Script" uid="uid://bhf1vtbm8w83w" path="res://scripts/pickups/health_pickup.gd" id="1_y7il8"]
+[ext_resource type="PackedScene" uid="uid://mncuqaxovuk4" path="res://assets/models/pickups/health.tscn" id="2_miu4l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y7il8"]
+size = Vector3(1, 0.7897949, 0.32763672)
+
+[node name="Pickup" type="Area3D"]
+collision_layer = 2
+script = ExtResource("1_y7il8")
+
+[node name="Health" parent="." instance=ExtResource("2_miu4l")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.008666992, -0.014404297)
+shape = SubResource("BoxShape3D_y7il8")

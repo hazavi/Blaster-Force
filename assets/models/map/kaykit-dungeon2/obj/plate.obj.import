@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cw844d6w1llnb"
+path="res://.godot/imported/plate.obj-86fbba5cba96131baabb82d5c0a2a0f7.mesh"
+
+[deps]
+
+files=["res://.godot/imported/plate.obj-86fbba5cba96131baabb82d5c0a2a0f7.mesh"]
+
+source_file="res://assets/models/map/kaykit-dungeon2/obj/plate.obj"
+dest_files=["res://.godot/imported/plate.obj-86fbba5cba96131baabb82d5c0a2a0f7.mesh", "res://.godot/imported/plate.obj-86fbba5cba96131baabb82d5c0a2a0f7.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

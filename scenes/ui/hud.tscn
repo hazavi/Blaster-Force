@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8t5bk42p8nng"]
+
+[ext_resource type="Script" uid="uid://840rnq8xr47q" path="res://scripts/hud.gd" id="1_0mwgc"]
+[ext_resource type="FontFile" uid="uid://bjp3oroblg73x" path="res://assets/Fonts/Poppins-Medium.ttf" id="2_hqnrr"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_0mwgc")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/VBoxContainer/HealthBar"]
+layout_mode = 0
+offset_right = 198.0
+offset_bottom = 23.0
+text = "HP: 100 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoinsLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Coins: 0"
+
+[node name="AmmoLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Ammo: 12 / 12"
+
+[node name="WeaponLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.39215687, 1)
+theme_override_fonts/font = ExtResource("2_hqnrr")
+theme_override_font_sizes/font_size = 20
+text = "🔫 Basic Gun"

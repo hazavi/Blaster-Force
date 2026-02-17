@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bylse11tevq7m"
+path="res://.godot/imported/scaffold_medium_cornerBoth.obj-f301ae3fe4e1138a12e73d184193056c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/scaffold_medium_cornerBoth.obj-f301ae3fe4e1138a12e73d184193056c.mesh"]
+
+source_file="res://assets/models/map/kaykit-dungeon2/obj/scaffold_medium_cornerBoth.obj"
+dest_files=["res://.godot/imported/scaffold_medium_cornerBoth.obj-f301ae3fe4e1138a12e73d184193056c.mesh", "res://.godot/imported/scaffold_medium_cornerBoth.obj-f301ae3fe4e1138a12e73d184193056c.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

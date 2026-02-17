@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://h6a0wupbdp31"
+path="res://.godot/imported/box_stacked.obj-513fb0175cb9d9b10a072d0a62263453.mesh"
+
+[deps]
+
+files=["res://.godot/imported/box_stacked.obj-513fb0175cb9d9b10a072d0a62263453.mesh"]
+
+source_file="res://assets/models/map/kaykit-dungeon/obj/box_stacked.obj"
+dest_files=["res://.godot/imported/box_stacked.obj-513fb0175cb9d9b10a072d0a62263453.mesh", "res://.godot/imported/box_stacked.obj-513fb0175cb9d9b10a072d0a62263453.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://do0wrqsgg3e6j"
+path="res://.godot/imported/barbarianHeadB.obj-e19717b499c9ca236222268fd39bed30.mesh"
+
+[deps]
+
+files=["res://.godot/imported/barbarianHeadB.obj-e19717b499c9ca236222268fd39bed30.mesh"]
+
+source_file="res://assets/models/map/kaykit-dungeon2/Characters/obj/extra heads/barbarianHeadB.obj"
+dest_files=["res://.godot/imported/barbarianHeadB.obj-e19717b499c9ca236222268fd39bed30.mesh", "res://.godot/imported/barbarianHeadB.obj-e19717b499c9ca236222268fd39bed30.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

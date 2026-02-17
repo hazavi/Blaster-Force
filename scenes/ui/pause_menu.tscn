@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://csshgcaybklr0"]
+
+[ext_resource type="FontFile" uid="uid://xf3kbuv42dt" path="res://assets/Fonts/Poppins-Black.ttf" id="1_0lmf7"]
+[ext_resource type="Script" uid="uid://cc132igqwq45g" path="res://scenes/ui/pause_menu.gd" id="1_f6eus"]
+[ext_resource type="FontFile" uid="uid://c3akd7isgdvg6" path="res://assets/Fonts/Poppins-Bold.ttf" id="2_f6eus"]
+
+[node name="PauseMenu" type="Control"]
+custom_minimum_size = Vector2(400, 350)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.5
+offset_top = -358.0
+offset_right = 640.5
+offset_bottom = 358.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f6eus")
+
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1278.0
+offset_bottom = 716.0
+color = Color(0, 0, 0, 0.70000005)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 1287.0
+offset_bottom = 719.0
+
+[node name="Content" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0lmf7")
+theme_override_font_sizes/font_size = 56
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="Panel/Content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ResumeButton" type="Button" parent="Panel/Content/ButtonContainer"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f6eus")
+theme_override_font_sizes/font_size = 28
+text = "RESUME"
+
+[node name="RestartButton" type="Button" parent="Panel/Content/ButtonContainer"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f6eus")
+theme_override_font_sizes/font_size = 28
+text = "RESTART"
+
+[node name="MainMenuButton" type="Button" parent="Panel/Content/ButtonContainer"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f6eus")
+theme_override_font_sizes/font_size = 28
+text = "MAIN MENU"

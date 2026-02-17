@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://5t0r8jlndt41"
+path="res://.godot/imported/chest_common.obj-25db285cfe1561075e43d7993034e84d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/chest_common.obj-25db285cfe1561075e43d7993034e84d.mesh"]
+
+source_file="res://assets/models/map/kaykit-dungeon2/obj/chest_common.obj"
+dest_files=["res://.godot/imported/chest_common.obj-25db285cfe1561075e43d7993034e84d.mesh", "res://.godot/imported/chest_common.obj-25db285cfe1561075e43d7993034e84d.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

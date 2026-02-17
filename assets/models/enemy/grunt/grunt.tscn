@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpquxlxklfpwt"]
+
+[ext_resource type="PackedScene" uid="uid://bwpmkhvft6fvm" path="res://assets/models/enemy/characters/fbx/Skeleton_Warrior.fbx" id="1_qv776"]
+[ext_resource type="PackedScene" uid="uid://bpvyv2jk53xja" path="res://assets/models/weapons/Sword.glb" id="2_bp1bb"]
+
+[node name="Skeleton_Warrior" instance=ExtResource("1_qv776")]
+
+[node name="Skeleton_Warrior_Helmet" parent="Rig_Medium/Skeleton3D" index="0"]
+transform = Transform3D(1, 2.019484e-28, 1.4210855e-14, -6.2117604e-22, 0.99999994, 4.3711392e-08, -1.4210855e-14, -4.371139e-08, 1, 1.8411523e-28, 1.2414254, -5.4264426e-08)
+bone_idx = 14
+
+[node name="HandAttachment" type="BoneAttachment3D" parent="Rig_Medium/Skeleton3D" index="10"]
+transform = Transform3D(-0.9999991, 5.205474e-07, -7.381588e-07, -8.2731805e-07, -4.4188886e-07, 0.99999976, 4.3859185e-07, 0.9999992, 4.241387e-07, -0.8831325, 1.0492609, -7.484147e-07)
+bone_name = "handslot.r"
+bone_idx = 13
+
+[node name="Sword" parent="Rig_Medium/Skeleton3D/HandAttachment" index="0" instance=ExtResource("2_bp1bb")]
+transform = Transform3D(-4.808273e-08, 5.684342e-13, -1.0999998, -2.842171e-13, 1.0999993, 2.842171e-13, 1.0999991, 0, -4.8082775e-08, -0.0057525635, -0.1261556, 0.061307788)

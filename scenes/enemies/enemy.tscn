@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://so7mc33bxw5f"]
+
+[ext_resource type="Script" uid="uid://b6w71ijhciy4" path="res://scripts/enemy.gd" id="1_6xk8f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ykcao"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6xk8f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8e3ao"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ykcao"]
+radius = 15.0
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_6xk8f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7267357, 0)
+shape = SubResource("CapsuleShape3D_ykcao")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48131657, 0)
+mesh = SubResource("CapsuleMesh_6xk8f")
+surface_material_override/0 = SubResource("StandardMaterial3D_8e3ao")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_ykcao")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+
+[node name="HealthLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.215472, 0.062388778)
+billboard = 1
+text = "100/100"
+font_size = 50

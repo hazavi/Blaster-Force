@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bwn7paa6ppglq"
+path="res://.godot/imported/target-fragment-small.obj-fb951bf42cbd66dbba7b345af48079cf.mesh"
+
+[deps]
+
+files=["res://.godot/imported/target-fragment-small.obj-fb951bf42cbd66dbba7b345af48079cf.mesh"]
+
+source_file="res://assets/models/guns/OBJ format/target-fragment-small.obj"
+dest_files=["res://.godot/imported/target-fragment-small.obj-fb951bf42cbd66dbba7b345af48079cf.mesh", "res://.godot/imported/target-fragment-small.obj-fb951bf42cbd66dbba7b345af48079cf.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

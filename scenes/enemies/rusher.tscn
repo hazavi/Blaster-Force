@@ -1,0 +1,52 @@
+[gd_scene load_steps=11 format=3 uid="uid://ckrktad3rdhy2"]
+
+[ext_resource type="Script" uid="uid://b01o0ppir5an5" path="res://scripts/enemies/enemy_rusher.gd" id="1_727js"]
+[ext_resource type="PackedScene" uid="uid://crvoavptsnmk8" path="res://assets/models/enemy/characters/fbx/Skeleton_Minion.fbx" id="2_727js"]
+[ext_resource type="Animation" uid="uid://qxpas28kibri" path="res://assets/Animations/enemies/rusher/Idle.res" id="3_r8jm5"]
+[ext_resource type="Animation" uid="uid://x5p1780mply3" path="res://assets/Animations/enemies/rusher/Punch.res" id="4_rq4x1"]
+[ext_resource type="Animation" uid="uid://bsnljjs3ff123" path="res://assets/Animations/enemies/rusher/Running.res" id="5_p1i4l"]
+[ext_resource type="Animation" uid="uid://b4lffrk6v50dl" path="res://assets/Animations/enemies/grunt/Hit.res" id="6_joj0v"]
+[ext_resource type="Animation" uid="uid://1ftyv3by7bhl" path="res://assets/Animations/player/Death.res" id="7_31cni"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vreau"]
+_data = {
+&"Death": ExtResource("7_31cni"),
+&"Hit": ExtResource("6_joj0v"),
+&"Idle": ExtResource("3_r8jm5"),
+&"Punch": ExtResource("4_rq4x1"),
+&"Running": ExtResource("5_p1i4l")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g0d4h"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_r8jm5"]
+radius = 18.0
+
+[node name="Rusher" type="CharacterBody3D"]
+script = ExtResource("1_727js")
+
+[node name="Body" parent="." instance=ExtResource("2_727js")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
+libraries = {
+&"Rusher": SubResource("AnimationLibrary_vreau")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.0801042, 0, 0, 0, 1, 0, 1.0138748, 0)
+shape = SubResource("CapsuleShape3D_g0d4h")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_r8jm5")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+
+[node name="HealthLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.978846, 0.062388778)
+billboard = 1
+text = "100/100"
+font_size = 60
+outline_size = 20
+uppercase = true

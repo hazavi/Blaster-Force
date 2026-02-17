@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dvanr0npi4gqk"
+path="res://.godot/imported/tileSpikes_shallow.obj-65b7200da4fa5af853f313afc82ffaea.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tileSpikes_shallow.obj-65b7200da4fa5af853f313afc82ffaea.mesh"]
+
+source_file="res://assets/models/map/kaykit-dungeon2/obj/tileSpikes_shallow.obj"
+dest_files=["res://.godot/imported/tileSpikes_shallow.obj-65b7200da4fa5af853f313afc82ffaea.mesh", "res://.godot/imported/tileSpikes_shallow.obj-65b7200da4fa5af853f313afc82ffaea.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

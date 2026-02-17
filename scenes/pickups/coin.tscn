@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://figasspfvdid"]
+
+[ext_resource type="PackedScene" uid="uid://depndqfo4do7" path="res://assets/models/pickups/coin.tscn" id="1_82xxr"]
+[ext_resource type="Script" uid="uid://cn0o4xeet0tub" path="res://scripts/pickups/coin.gd" id="1_sfxfy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_82xxr"]
+
+[node name="Coin" type="Area3D"]
+collision_layer = 2
+script = ExtResource("1_sfxfy")
+
+[node name="MeshInstance3D" parent="." instance=ExtResource("1_82xxr")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.7505145, 0, 0, 0, 0.79402614, 0, 0, 0, 0.2180448, 0, 0, 0)
+shape = SubResource("SphereShape3D_82xxr")

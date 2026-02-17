@@ -1,0 +1,52 @@
+[gd_scene load_steps=11 format=3 uid="uid://6dgeour4jc1j"]
+
+[ext_resource type="Script" uid="uid://em51o3lwyjgr" path="res://scripts/enemies/enemy_grunt.gd" id="1_ave5w"]
+[ext_resource type="PackedScene" uid="uid://dpquxlxklfpwt" path="res://assets/models/enemy/grunt/grunt.tscn" id="2_g0d4h"]
+[ext_resource type="Animation" uid="uid://b4lffrk6v50dl" path="res://assets/Animations/enemies/grunt/Hit.res" id="3_1oyot"]
+[ext_resource type="Animation" uid="uid://bvkib4dehg7m4" path="res://assets/Animations/enemies/grunt/Idle.res" id="4_gj8ti"]
+[ext_resource type="Animation" uid="uid://cwerclypnbs4y" path="res://assets/Animations/enemies/grunt/Stab.res" id="5_ojm8e"]
+[ext_resource type="Animation" uid="uid://1ftyv3by7bhl" path="res://assets/Animations/player/Death.res" id="6_uhhvi"]
+[ext_resource type="Animation" uid="uid://bsnljjs3ff123" path="res://assets/Animations/enemies/rusher/Running.res" id="7_1oyot"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hvqng"]
+_data = {
+&"Attack": ExtResource("5_ojm8e"),
+&"Death": ExtResource("6_uhhvi"),
+&"Got_Hit": ExtResource("3_1oyot"),
+&"Idle": ExtResource("4_gj8ti"),
+&"Running": ExtResource("7_1oyot")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g0d4h"]
+radius = 0.5810547
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g0d4h"]
+radius = 12.0
+
+[node name="Grunt" type="CharacterBody3D"]
+script = ExtResource("1_ave5w")
+
+[node name="Body" parent="." instance=ExtResource("2_g0d4h")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
+libraries = {
+&"Grunt": SubResource("AnimationLibrary_hvqng")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.0801042, 0, 0, 0, 1, 0.030372918, 1.0138748, -0.024354875)
+shape = SubResource("CapsuleShape3D_g0d4h")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_g0d4h")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+
+[node name="HealthLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.903529, 0.062388778)
+billboard = 1
+text = "100/100"
+font_size = 50

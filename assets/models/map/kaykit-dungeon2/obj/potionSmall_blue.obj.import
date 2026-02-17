@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cs4ys5q4cgcya"
+path="res://.godot/imported/potionSmall_blue.obj-b2c925b00d4b525f330a1cd7ea81ad0a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/potionSmall_blue.obj-b2c925b00d4b525f330a1cd7ea81ad0a.mesh"]
+
+source_file="res://assets/models/map/kaykit-dungeon2/obj/potionSmall_blue.obj"
+dest_files=["res://.godot/imported/potionSmall_blue.obj-b2c925b00d4b525f330a1cd7ea81ad0a.mesh", "res://.godot/imported/potionSmall_blue.obj-b2c925b00d4b525f330a1cd7ea81ad0a.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

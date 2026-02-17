@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b8gn88clnvl0h"
+path="res://.godot/imported/quiver_full.obj-2afbbf81a76857feb32793ff64e77a7f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/quiver_full.obj-2afbbf81a76857feb32793ff64e77a7f.mesh"]
+
+source_file="res://assets/models/map/kaykit-dungeon2/obj/quiver_full.obj"
+dest_files=["res://.godot/imported/quiver_full.obj-2afbbf81a76857feb32793ff64e77a7f.mesh", "res://.godot/imported/quiver_full.obj-2afbbf81a76857feb32793ff64e77a7f.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

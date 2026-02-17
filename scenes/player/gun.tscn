@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dere3c3alw15x"]
+
+[ext_resource type="Script" uid="uid://dnmrbf5quh5wt" path="res://scripts/gun.gd" id="1_j0ebl"]
+[ext_resource type="PackedScene" uid="uid://dxy1dw45kkbti" path="res://assets/models/guns/FBX/blaster-c.fbx" id="2_j0ebl"]
+[ext_resource type="PackedScene" uid="uid://c6lnevqxaav78" path="res://assets/models/guns/FBX/blaster-g.fbx" id="3_xf7jr"]
+
+[node name="Gun" type="Node3D"]
+script = ExtResource("1_j0ebl")
+
+[node name="blaster-c" parent="." instance=ExtResource("2_j0ebl")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0.043744862)
+visible = false
+
+[node name="Model" parent="." instance=ExtResource("3_xf7jr")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -0.09258312)
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1177527, -0.5312742)

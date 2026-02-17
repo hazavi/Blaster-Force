@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddg51yhkuht1s"]
+
+[ext_resource type="Script" uid="uid://dq8tljrkuortr" path="res://scenes/ui/gun_preview.gd" id="1_donxi"]
+
+[sub_resource type="Environment" id="Environment_donxi"]
+glow_enabled = true
+glow_intensity = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_rxf3r"]
+size = Vector3(0.8, 0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_donxi"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="GunPreview" type="Node3D"]
+script = ExtResource("1_donxi")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.96592575, 0.258819, 0, -0.258819, 0.96592575, 0, 0.3, 1.5)
+environment = SubResource("Environment_donxi")
+fov = 50.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
+
+[node name="FillLight" type="OmniLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 1)
+light_color = Color(0.8627451, 0.9019608, 1, 1)
+light_energy = 2.0
+
+[node name="GunSlot" type="Node3D" parent="."]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+
+[node name="TempGun" type="MeshInstance3D" parent="GunSlot"]
+mesh = SubResource("BoxMesh_rxf3r")
+surface_material_override/0 = SubResource("StandardMaterial3D_donxi")

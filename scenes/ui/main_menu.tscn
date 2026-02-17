@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://rb20k1qq5out"]
+
+[ext_resource type="Script" uid="uid://cjmcabod0d2cx" path="res://scenes/ui/main_menu.gd" id="1_iwbf0"]
+[ext_resource type="FontFile" uid="uid://xf3kbuv42dt" path="res://assets/Fonts/Poppins-Black.ttf" id="2_2ysvc"]
+[ext_resource type="FontFile" uid="uid://c3akd7isgdvg6" path="res://assets/Fonts/Poppins-Bold.ttf" id="3_xpiny"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhu4a"]
+font = ExtResource("2_2ysvc")
+font_size = 64
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iwbf0")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1286.0
+offset_bottom = 723.0
+color = Color(0.06879827, 0.06879828, 0.06879828, 1)
+
+[node name="Label" type="Label" parent="Background"]
+layout_mode = 0
+offset_top = 71.0
+offset_right = 1285.0
+offset_bottom = 253.0
+text = "BLASTER FORCE"
+label_settings = SubResource("LabelSettings_bhu4a")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 331.0
+offset_right = 758.0
+offset_bottom = 533.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_xpiny")
+theme_override_font_sizes/font_size = 32
+text = "Play"
+icon_alignment = 1
+
+[node name="ShopButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_xpiny")
+theme_override_font_sizes/font_size = 32
+text = "Shop"
+icon_alignment = 1
+
+[node name="QuitButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_xpiny")
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+icon_alignment = 1
