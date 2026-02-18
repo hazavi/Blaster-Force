@@ -15,32 +15,59 @@ Blaster Force is a 3D top-down shooter where you battle waves of enemies, collec
 
 ## Weapons
 
-- **Blaster-C**: Balanced starter weapon
-- **Blaster-G**: High fire rate, extended magazine
-- **Blaster-Q**: High damage, close range
+| Weapon | Description | Strengths |
+|--------|-------------|-----------|
+| **Blaster-C** | Balanced starter weapon | Good all-around stats |
+| **Blaster-G** | Assault rifle | High fire rate, extended magazine |
+| **Blaster-Q** | Shotgun/heavy weapon | Massive damage, close range |
 
 ## Controls
 
-- **WASD**: Move
-- **Mouse**: Aim (automatic)
-- **Auto-shoot**: Fires automatically when enemies are in range
-- **R**: Reload
-- **ESC**: Pause menu
+| Input | Action |
+|-------|--------|
+| **WASD** | Move |
+| **Mouse** | Aim (automatic) |
+| **Auto-shoot** | Fires automatically when enemies in range |
+| **R** | Reload |
+| **ESC** | Pause menu |
+
 
 ## Gameplay
 
-1. Eliminate all enemies in each level
-2. Collect coins dropped by defeated enemies
-3. Purchase and upgrade weapons in the shop
-4. Complete levels to progress
-5. Upgrade all weapon stats simultaneously for incremental improvements
+1. **Eliminate all enemies** in each level
+2. **Collect coins** dropped by defeated enemies
+3. **Visit the shop** to purchase new weapons
+4. **Upgrade weapons** to increase damage, fire rate, ammo, and range
+5. **Complete levels** to unlock new stages
+6. **Survive and progress** through increasingly difficult challenges
 
 ## Game Managers (Autoloads)
 
-- **GameManager**: Level progression and enemy tracking
-- **WeaponUpgradeManager**: Weapon stats and upgrades
-- **SaveManager**: Persistent data storage
-- **PauseHandler**: Global pause system
+| Manager | Purpose |
+|---------|---------|
+| **GameManager** | Level progression, enemy tracking, game state |
+| **WeaponUpgradeManager** | Weapon stats, upgrades, weapon switching |
+| **SaveManager** | Persistent data storage (JSON-based) |
+| **LevelProgressManager** | Level unlocking and completion tracking |
+| **PauseHandler** | Global pause system |
+| **GunManager** | Gun model paths and base stats |
+
+## Game Systems
+
+### **Weapon System**
+- Each weapon has base stats (damage, fire rate, mag size, reload time)
+- Weapons can be upgraded incrementally (all 4 stats at once)
+- Weapons are switched by showing/hiding models in GunPivot
+
+### **Enemy AI**
+- Enemies use range indicator to detect player.
+- Different enemy types with unique behaviors
+- Health bars displayed above enemies
+
+### **Save System**
+- Saves coins, owned weapons, active weapon, level progress
+- Auto-saves when coins are collected, weapons purchased, or levels completed
+
 
 ## Technical Details
 
