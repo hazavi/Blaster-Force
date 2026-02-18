@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjeqblvijufr7"]
+[gd_scene load_steps=5 format=3 uid="uid://bjeqblvijufr7"]
 
 [ext_resource type="PackedScene" uid="uid://j6q57yyu80ju" path="res://assets/models/adventurer/gltf/Barbarian.glb" id="1_bdofn"]
-[ext_resource type="PackedScene" uid="uid://dere3c3alw15x" path="res://scenes/player/gun.tscn" id="2_54yf4"]
+[ext_resource type="PackedScene" uid="uid://bg62ckt3qgbvp" path="res://scenes/guns/blaster-g.tscn" id="3_2xjhn"]
+[ext_resource type="PackedScene" uid="uid://c1l35x2xylrnq" path="res://scenes/guns/blaster-c.tscn" id="4_cbsh2"]
+[ext_resource type="PackedScene" uid="uid://dkl1nh26itxwh" path="res://scenes/guns/blaster-q.tscn" id="5_cg333"]
 
 [node name="Barbarian" instance=ExtResource("1_bdofn")]
 
@@ -13,5 +15,14 @@ bone_idx = 14
 [node name="GunPivot" type="Node3D" parent="Rig_Medium/Skeleton3D/HandAttachment" index="0"]
 transform = Transform3D(-4.37114e-08, 0, -1.0000002, 0, 0.9999999, 0, 1.0000002, 0, -4.37114e-08, -0.030317202, 0.0864716, -0.25214258)
 
-[node name="Gun" parent="Rig_Medium/Skeleton3D/HandAttachment/GunPivot" index="0" instance=ExtResource("2_54yf4")]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.9999999, 0, 0, 0, 0.99999994, 0.2931828, -5.3290697e-15, -0.29516426)
+[node name="blaster-g" parent="Rig_Medium/Skeleton3D/HandAttachment/GunPivot" index="0" instance=ExtResource("3_2xjhn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30107027, -2.3314684e-14, -0.3004612)
+visible = false
+
+[node name="blaster-c" parent="Rig_Medium/Skeleton3D/HandAttachment/GunPivot" index="1" instance=ExtResource("4_cbsh2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3139367, -1.7763568e-14, -0.2785337)
+visible = false
+
+[node name="blaster-q" parent="Rig_Medium/Skeleton3D/HandAttachment/GunPivot" index="2" instance=ExtResource("5_cg333")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27211377, 0.015735757, -0.4139749)
+visible = false

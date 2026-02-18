@@ -8,10 +8,15 @@ extends CharacterBody3D
 @onready var range_indicator = $RangeIndicator
 @onready var shoot_range_area = $ShootRange
 
-# NEW: Find gun and pivot dynamically since they're deep in skeleton
+# NEW: Find gun pivot dynamically
 var gun_pivot: Node3D = null
-var gun: Node3D = null
+var gun: Node3D = null  # Currently active gun
 var anim_player: AnimationPlayer = null
+
+# ✅ NEW: References to all 3 gun models
+var gun_blaster_c: Node3D = null
+var gun_blaster_g: Node3D = null
+var gun_blaster_q: Node3D = null
 
 var max_health = 100
 var health = 100
@@ -50,17 +55,14 @@ func _ready():
 		play_anim("Player/Idle")
 	
 	print("Player ready!")
-	print("Gun found: ", gun != null)
 	print("GunPivot found: ", gun_pivot != null)
 	
 	# === APPLY WEAPON UPGRADES ===
 	await get_tree().process_frame
 	await get_tree().process_frame
 	
-	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
-	if upgrade_manager and gun:
-		upgrade_manager.apply_to_gun(gun)
-		print("✅ Weapon upgrades applied: ", upgrade_manager.get_current_weapon().name)
+	# ✅ Load correct gun model from the start
+	load_current_weapon()
 
 
 func find_nodes():
@@ -73,11 +75,101 @@ func find_nodes():
 	gun_pivot = find_child("GunPivot", true, false)
 	if gun_pivot:
 		print("Found GunPivot at: ", gun_pivot.get_path())
+		
+		# ✅ NEW: Find all 3 gun models inside GunPivot
+		find_all_guns()
+
+
+# ✅ NEW: Find all gun models in GunPivot
+func find_all_guns():
+	if not gun_pivot:
+		return
 	
-	# Find Gun
-	gun = find_child("Gun", true, false)
+	# Find each gun by name
+	gun_blaster_c = gun_pivot.find_child("blaster-c", false, false)
+	gun_blaster_g = gun_pivot.find_child("blaster-g", false, false)
+	gun_blaster_q = gun_pivot.find_child("blaster-q", false, false)
+	
+	print("📦 Found guns:")
+	print("  Blaster-C: ", gun_blaster_c != null)
+	print("  Blaster-G: ", gun_blaster_g != null)
+	print("  Blaster-Q: ", gun_blaster_q != null)
+
+
+# ✅ NEW: Load the current weapon's gun model
+func load_current_weapon():
+	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
+	if not upgrade_manager:
+		print("⚠️ No WeaponUpgradeManager found!")
+		return
+	
+	var weapon = upgrade_manager.get_current_weapon()
+	print("🔫 Loading weapon: ", weapon.name)
+	
+	# Show/hide correct gun
+	set_active_gun(weapon.name)
+	
+	# Apply stats
+	if gun and upgrade_manager:
+		upgrade_manager.apply_to_gun(gun)
+		print("✅ Weapon upgrades applied: ", weapon.name)
+	
+	# ✅ Listen for weapon switches
+	if not upgrade_manager.weapon_switched.is_connected(_on_weapon_switched):
+		upgrade_manager.weapon_switched.connect(_on_weapon_switched)
+
+
+# ✅ NEW: Show only the active gun, hide others
+func set_active_gun(weapon_name: String):
+	"""Show the correct gun model, hide the others"""
+	if not gun_pivot:
+		print("❌ GunPivot not found!")
+		return
+	
+	print("🎯 Activating gun: ", weapon_name)
+	
+	# Hide all guns first
+	if gun_blaster_c:
+		gun_blaster_c.visible = false
+	if gun_blaster_g:
+		gun_blaster_g.visible = false
+	if gun_blaster_q:
+		gun_blaster_q.visible = false
+	
+	# Show the correct gun
+	match weapon_name:
+		"Blaster-C":
+			if gun_blaster_c:
+				gun_blaster_c.visible = true
+				gun = gun_blaster_c
+				print("  ✅ SHOWING: Blaster-C")
+		"Blaster-G":
+			if gun_blaster_g:
+				gun_blaster_g.visible = true
+				gun = gun_blaster_g
+				print("  ✅ SHOWING: Blaster-G")
+		"Blaster-Q":
+			if gun_blaster_q:
+				gun_blaster_q.visible = true
+				gun = gun_blaster_q
+				print("  ✅ SHOWING: Blaster-Q")
+		_:
+			print("  ❌ Unknown weapon: ", weapon_name)
+
+
+# ✅ NEW: Switch gun when weapon changes
+func _on_weapon_switched():
+	print("🔫 Player: Weapon switched! Changing gun model...")
+	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
+	if not upgrade_manager:
+		return
+	
+	var weapon = upgrade_manager.get_current_weapon()
+	set_active_gun(weapon.name)
+	
+	# Reapply stats
 	if gun:
-		print("Found Gun at: ", gun.get_path())
+		upgrade_manager.apply_to_gun(gun)
 
 
 func _physics_process(delta):
@@ -123,9 +215,7 @@ func handle_auto_aim():
 		body.look_at(target_pos)
 		body.rotation.y += PI
 		
-		# 2. Gun aims at enemy (if gun_pivot exists and is not attached to bone)
-		# Since gun is now attached to hand bone, the hand animation handles aiming
-		# We can still rotate the gun_pivot for fine aiming:
+		# 2. Gun aims at enemy
 		if gun_pivot:
 			var gun_target = current_target.global_position
 			gun_target.y = gun_pivot.global_position.y
@@ -209,7 +299,7 @@ func find_closest_enemy():
 func handle_auto_shoot():
 	if current_target != null:
 		is_shooting = true
-		# Use the gun we found dynamically
+		# Use the currently active gun
 		if gun != null and gun.has_method("try_shoot"):
 			gun.try_shoot(current_target.global_position)
 	else:

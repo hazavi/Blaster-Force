@@ -155,13 +155,13 @@ func add_owned_weapon_card(weapon_data: Dictionary, weapon_index: int):
 	if is_active:
 		style.bg_color = Color(0.15, 0.3, 0.15, 0.95)
 		style.border_color = Color(0.3, 1.0, 0.3)
-		style.set_border_width_all(4)
-		style.shadow_size = 15
+		style.set_border_width_all(5)
+		style.shadow_size = 5
 		style.shadow_color = Color(0.3, 1.0, 0.3, 0.4)
 	else:
 		style.bg_color = Color(0.1, 0.15, 0.1, 0.95)
 		style.border_color = Color(0.2, 0.5, 0.2)
-		style.set_border_width_all(2)
+		style.set_border_width_all(5)
 	
 	style.set_corner_radius_all(15)
 	card.add_theme_stylebox_override("panel", style)
@@ -200,7 +200,7 @@ func add_buyable_weapon_card(shop_index: int):
 	var style = StyleBoxFlat.new()
 	style.bg_color = Color(0.15, 0.15, 0.25, 0.95)
 	style.border_color = Color(1.0, 0.84, 0.0)
-	style.set_border_width_all(3)
+	style.set_border_width_all(5)
 	style.set_corner_radius_all(15)
 	style.shadow_size = 10
 	card.add_theme_stylebox_override("panel", style)

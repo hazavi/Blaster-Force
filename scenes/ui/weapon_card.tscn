@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqmrdgkk5l67l"]
+[gd_scene load_steps=7 format=3 uid="uid://cqmrdgkk5l67l"]
 
 [ext_resource type="Script" uid="uid://crvcemhufup7n" path="res://scenes/ui/weapon_card.gd" id="1_phxxg"]
 [ext_resource type="PackedScene" uid="uid://ddg51yhkuht1s" path="res://scenes/ui/gun_preview.tscn" id="2_243ac"]
@@ -15,6 +15,12 @@ border_color = Color(1, 0.84313726, 0, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_243ac"]
+bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
 
 [node name="WeaponCard" type="PanelContainer"]
 custom_minimum_size = Vector2(280, 420)
@@ -54,12 +60,15 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/LevelBadge"]
 layout_mode = 2
+alignment = 1
 
 [node name="Label" type="Label" parent="Content/LevelBadge/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_nlvka")
 theme_override_font_sizes/font_size = 18
 text = "LEVEL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="StatsContainer" type="VBoxContainer" parent="Content"]
 layout_mode = 2
@@ -89,7 +98,9 @@ theme_override_font_sizes/font_size = 16
 text = "🎯 Range: 6m"
 
 [node name="ActionButton" type="Button" parent="Content"]
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_nlvka")
 theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_243ac")
 text = "💰 UPGRADE - 50"

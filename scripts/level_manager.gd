@@ -5,6 +5,9 @@ extends Node
 @export var exit_door: Node3D
 @export var enemy_spawns: Array[Node] = []
 
+# ✅ NEW: Add level number export
+@export var level_number: int = 1
+
 # Spawn mode
 enum SpawnMode { RANDOM, SEQUENTIAL, GRUNT_ONLY, SHOOTER_ONLY, RUSHER_ONLY }
 @export var spawn_mode: SpawnMode = SpawnMode.RANDOM
@@ -37,8 +40,10 @@ func _ready():
 	
 	spawn_player()
 	
+	# ✅ FIX: Use the exported level_number instead of hardcoded 1
 	if game_manager:
-		game_manager.start_level(1)
+		game_manager.start_level(level_number)
+		print("🎮 Started Level ", level_number)
 	
 	spawn_enemies()
 
@@ -181,9 +186,6 @@ func _on_all_enemies_dead():
 	
 	if game_manager:
 		game_manager.complete_level()
-	
-	# Level Complete will be shown when player touches the exit trigger
-	# No need to show it here anymore!
 
 
 func open_exit_door():

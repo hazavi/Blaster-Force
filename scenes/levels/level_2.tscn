@@ -520,6 +520,7 @@ script = ExtResource("17_joiyc")
 player_spawn = NodePath("../PlayerSpawn")
 exit_door = NodePath("../Exits/Door_Closed")
 enemy_spawns = [NodePath("../EnemySpawns/EnemySpawn1"), NodePath("../EnemySpawns/EnemySpawn4"), NodePath("../EnemySpawns/EnemySpawn2")]
+level_number = 2
 
 [node name="EnemySpawns" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.45805, 0, -24.613728)

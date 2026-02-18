@@ -337,13 +337,23 @@ func apply_to_gun(gun: Node):
 	
 	var weapon = get_current_weapon()
 	
-	gun.damage = weapon.damage
-	gun.fire_rate = weapon.fire_rate
-	gun.mag_size = weapon.mag_size
-	gun.current_ammo = weapon.mag_size
+	# ✅ Get base settings for this gun type
+	var base_settings = GunManager.get_gun_settings(weapon.name)
 	
-	print("Applied base weapon stats to gun: ", weapon.name)
+	# ✅ Apply BASE stats + UPGRADES
+	gun.damage = base_settings.damage + weapon.get("damage_level", 0) * UPGRADE_INCREMENTS.damage
+	gun.fire_rate = max(0.05, base_settings.fire_rate - weapon.get("fire_rate_level", 0) * UPGRADE_INCREMENTS.fire_rate)
+	gun.mag_size = base_settings.mag_size + weapon.get("ammo_level", 0) * UPGRADE_INCREMENTS.ammo
+	gun.current_ammo = gun.mag_size
+	gun.bullet_speed = base_settings.bullet_speed
+	gun.reload_time = base_settings.reload_time
 	
+	print("✅ Applied stats to gun: ", weapon.name)
+	print("   Damage: ", gun.damage)
+	print("   Fire Rate: ", gun.fire_rate)
+	print("   Mag Size: ", gun.mag_size)
+	
+	# Apply range to player
 	var player = null
 	var current_node = gun.get_parent()
 	
@@ -357,30 +367,22 @@ func apply_to_gun(gun: Node):
 		
 		current_node = current_node.get_parent()
 	
-	if player == null:
-		print("Warning: Could not find player node")
-		return
-	
-	if "shoot_range" in player:
-		player.shoot_range = weapon.range
-		print("Updated player shoot_range to: ", weapon.range)
+	if player and "shoot_range" in player:
+		var range_value = weapon.get("range", 6.0) + weapon.get("range_level", 0) * UPGRADE_INCREMENTS.range
+		player.shoot_range = range_value
 		
 		var shoot_area = player.get_node_or_null("ShootRange")
 		if shoot_area and shoot_area is Area3D:
 			var collision = shoot_area.get_node_or_null("CollisionShape3D")
 			if collision and collision.shape is SphereShape3D:
-				collision.shape.radius = weapon.range
-				print("Updated ShootRange radius to: ", weapon.range)
+				collision.shape.radius = range_value
 		
 		var range_indicator = player.get_node_or_null("RangeIndicator")
 		if range_indicator and range_indicator is MeshInstance3D:
 			var mesh = range_indicator.mesh
 			if mesh is TorusMesh:
-				mesh.inner_radius = weapon.range - 0.1
-				mesh.outer_radius = weapon.range + 0.1
-				print("Updated RangeIndicator size")
-	
-	print("✅ Full weapon stats applied: ", weapon.name)
+				mesh.inner_radius = range_value - 0.1
+				mesh.outer_radius = range_value + 0.1
 
 
 # ============================================

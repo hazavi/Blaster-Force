@@ -1,16 +1,17 @@
 extends Node
 
-# ============================================
-# SAVE MANAGER - Persistent data system
-# ============================================
-
 const SAVE_PATH = "user://save_game.json"
 
 var default_data = {
-	"coins": 50,  # Starting coins 
+	"coins": 50,
 	"owned_weapons": [],
 	"active_weapon_index": 0,
 	"shop_weapons": [],
+	"level_progress": {
+		"current_level": 1,
+		"unlocked_levels": [1],  # Level 1 is unlocked by default
+		"completed_levels": []
+	},
 	"statistics": {
 		"total_kills": 0,
 		"total_coins_collected": 0,
@@ -18,24 +19,23 @@ var default_data = {
 	}
 }
 
-
 func _ready():
 	print("=== SAVE MANAGER READY ===")
 	print("Save path: ", SAVE_PATH)
 	print("Save file exists: ", FileAccess.file_exists(SAVE_PATH))
 
-
 func save_game() -> bool:
 	"""Save current game state to file"""
 	var upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
 	var game_manager = get_node_or_null("/root/GameManager")
+	var level_progress = get_node_or_null("/root/LevelProgressManager")  # ✅ NEW
 	
 	if not upgrade_manager:
 		print("⚠️ WeaponUpgradeManager not found, cannot save!")
 		return false
 	
 	var save_data = {
-		"coins": upgrade_manager.coins,  # Changed from gold
+		"coins": upgrade_manager.coins,
 		"owned_weapons": upgrade_manager.owned_weapons.duplicate(true),
 		"active_weapon_index": upgrade_manager.active_weapon_index,
 		"shop_weapons": upgrade_manager.shop_weapons.duplicate(true),
@@ -43,7 +43,12 @@ func save_game() -> bool:
 			"total_kills": game_manager.enemies_killed if game_manager else 0,
 			"total_coins_collected": upgrade_manager.total_coins_collected,
 			"levels_completed": 0
-		}
+		},
+		# ✅ NEW: Save level progress
+		"levels_unlocked": level_progress.levels_unlocked if level_progress else 1,
+		"current_level": level_progress.current_level if level_progress else 1,
+		"levels_completed": level_progress.levels_completed if level_progress else [false, false, false]
+	
 	}
 	
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -51,15 +56,13 @@ func save_game() -> bool:
 		var json_string = JSON.stringify(save_data, "\t")
 		file.store_string(json_string)
 		file.close()
-		print("✅ Game saved! Coins: ", save_data.coins)
+		print("✅ Game saved!")
 		return true
 	else:
 		print("❌ Failed to save game!")
 		return false
 
-
 func load_game() -> Dictionary:
-	"""Load game state from file"""
 	if not FileAccess.file_exists(SAVE_PATH):
 		print("📁 No save file found, using defaults")
 		return default_data.duplicate(true)
@@ -75,29 +78,29 @@ func load_game() -> Dictionary:
 		if parse_result == OK:
 			var data = json.data
 			
-			# Migrate old saves (convert "gold" to "coins")
-			if data.has("gold") and not data.has("coins"):
-				data["coins"] = data["gold"]
-				print("🔄 Migrated old save: gold -> coins")
+			# Migrate old saves (add level_progress if missing)
+			if not data.has("level_progress"):
+				data["level_progress"] = {
+					"current_level": 1,
+					"unlocked_levels": [1],
+					"completed_levels": []
+				}
 			
-			print("✅ Game loaded! Coins: ", data.get("coins", 0))
+			print("✅ Game loaded!")
 			return data
 		else:
-			print("❌ Failed to parse save file! Error: ", json.get_error_message())
+			print("❌ Failed to parse save file!")
 			return default_data.duplicate(true)
 	else:
 		print("❌ Failed to open save file!")
 		return default_data.duplicate(true)
 
-
 func delete_save() -> bool:
-	"""Delete save file (reset progress)"""
 	if FileAccess.file_exists(SAVE_PATH):
 		DirAccess.remove_absolute(SAVE_PATH)
 		print("🗑️ Save file deleted!")
 		return true
 	return false
-
 
 func get_save_path() -> String:
 	return SAVE_PATH

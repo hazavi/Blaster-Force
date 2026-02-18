@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7f0qvkidkpy1"]
+
+[ext_resource type="Script" uid="uid://ctjwb3abtgwhk" path="res://scenes/ui/level_select.gd" id="1_7l8mc"]
+[ext_resource type="FontFile" uid="uid://xf3kbuv42dt" path="res://assets/Fonts/Poppins-Black.ttf" id="1_l0h45"]
+[ext_resource type="FontFile" uid="uid://cfa5c0prw4wdk" path="res://assets/Fonts/Poppins-ExtraBold.ttf" id="2_7l8mc"]
+
+[node name="LevelSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7l8mc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.072842635, 0.072842635, 0.072842635, 1)
+
+[node name="Title" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 126.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_l0h45")
+theme_override_font_sizes/font_size = 64
+text = "SELECT LEVEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 191.0
+offset_right = 1278.0
+offset_bottom = 339.0
+
+[node name="LevelCard1" type="PanelContainer" parent="LevelContainer"]
+layout_mode = 2
+
+[node name="LevelCard2" type="PanelContainer" parent="LevelContainer"]
+layout_mode = 2
+
+[node name="LevelCard3" type="PanelContainer" parent="LevelContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 14.0
+offset_right = 216.0
+offset_bottom = 105.0
+theme_override_fonts/font = ExtResource("2_7l8mc")
+theme_override_font_sizes/font_size = 24
+text = "Back to Menu"
+flat = true

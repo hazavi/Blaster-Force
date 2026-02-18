@@ -21,6 +21,8 @@ func _ready():
 	upgrade_manager = get_node_or_null("/root/WeaponUpgradeManager")
 	if upgrade_manager:
 		upgrade_manager.weapon_switched.connect(_on_weapon_switched)
+		# ✅ NEW: Also listen for weapon upgrades
+		upgrade_manager.weapon_upgraded.connect(_on_weapon_switched)
 
 
 func find_player():
@@ -28,14 +30,23 @@ func find_player():
 	
 	if player:
 		print("HUD: Found player!")
-		# Find gun dynamically
-		gun = player.find_child("Gun", true, false)
-		if gun:
-			print("HUD: Found gun at: ", gun.get_path())
-		else:
-			print("HUD: Gun not found!")
+		# ✅ NEW: Find gun dynamically (it changes based on weapon)
+		update_gun_reference()
 	else:
 		print("HUD: Player not found!")
+
+
+# ✅ NEW: Update gun reference
+func update_gun_reference():
+	if not player:
+		return
+	
+	# Try to get the active gun from player
+	if "gun" in player and player.gun != null:
+		gun = player.gun
+		print("HUD: Found gun at: ", gun.get_path())
+	else:
+		print("HUD: Gun not found!")
 
 
 func _process(_delta):
@@ -43,14 +54,21 @@ func _process(_delta):
 		find_player()
 		return
 	
-	# Find gun if not found yet
+	# ✅ FIX: Update gun reference if it's null or invalid
 	if gun == null or not is_instance_valid(gun):
-		gun = player.find_child("Gun", true, false)
+		update_gun_reference()
 	
 	update_health()
 	update_ammo()
 	update_coins()
 	update_weapon()
+
+
+func _on_weapon_switched():
+	update_weapon()
+	# ✅ NEW: Update gun reference when weapon switches
+	update_gun_reference()
+
 
 
 func update_health():
@@ -101,7 +119,3 @@ func update_weapon():
 	
 	var weapon = upgrade_manager.get_current_weapon()
 	weapon_label.text = "🔫 %s" % weapon.name
-
-
-func _on_weapon_switched():
-	update_weapon()

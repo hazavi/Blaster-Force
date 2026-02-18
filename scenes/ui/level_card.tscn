@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://cevnrq14vnibl"]
+
+[ext_resource type="Script" uid="uid://bkbgcsehq65wo" path="res://scenes/ui/level_card.gd" id="1_6lfan"]
+[ext_resource type="FontFile" uid="uid://xf3kbuv42dt" path="res://assets/Fonts/Poppins-Black.ttf" id="2_07o60"]
+[ext_resource type="FontFile" uid="uid://bjp3oroblg73x" path="res://assets/Fonts/Poppins-Medium.ttf" id="3_e24jo"]
+[ext_resource type="FontFile" uid="uid://cfa5c0prw4wdk" path="res://assets/Fonts/Poppins-ExtraBold.ttf" id="4_sqvla"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bf6v"]
+bg_color = Color(0.26006752, 0.26006752, 0.54102784, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="LevelCard" type="PanelContainer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 169.0
+offset_bottom = 162.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1bf6v")
+script = ExtResource("1_6lfan")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LevelNumber" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_07o60")
+theme_override_font_sizes/font_size = 24
+text = "LEVEL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Status" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_e24jo")
+theme_override_font_sizes/font_size = 16
+text = "COMPLETED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="Content"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_sqvla")
+theme_override_font_sizes/font_size = 24
+text = "PLAY"
