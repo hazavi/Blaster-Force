@@ -1,17 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://r1sps030g7xa"]
+[gd_scene format=3 uid="uid://r1sps030g7xa"]
 
 [ext_resource type="Shader" uid="uid://hayrtmfb5od" path="res://scenes/ui/shop.gdshader" id="1_ahsc1"]
 [ext_resource type="Script" uid="uid://dsgcjhdpfjvw2" path="res://scenes/ui/shop.gd" id="1_kdvrj"]
 [ext_resource type="FontFile" uid="uid://xf3kbuv42dt" path="res://assets/Fonts/Poppins-Black.ttf" id="2_2i61c"]
 [ext_resource type="FontFile" uid="uid://c3akd7isgdvg6" path="res://assets/Fonts/Poppins-Bold.ttf" id="3_85p0y"]
 [ext_resource type="FontFile" uid="uid://cfa5c0prw4wdk" path="res://assets/Fonts/Poppins-ExtraBold.ttf" id="4_85p0y"]
+[ext_resource type="FontFile" uid="uid://bjp3oroblg73x" path="res://assets/Fonts/Poppins-Medium.ttf" id="6_atewb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kdvrj"]
 shader = ExtResource("1_ahsc1")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_atewb"]
 
-[node name="Shop" type="Control"]
+[node name="Shop" type="Control" unique_id=813956724]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kdvrj")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1456222255]
 material = SubResource("ShaderMaterial_kdvrj")
 layout_mode = 1
 anchors_preset = 15
@@ -30,7 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.103743605, 0.103743516, 0.103743516, 1)
 
-[node name="TopBar" type="HBoxContainer" parent="."]
+[node name="TopBar" type="HBoxContainer" parent="." unique_id=382728281]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -40,26 +41,26 @@ grow_horizontal = 2
 theme_override_constants/separation = 20
 alignment = 2
 
-[node name="CoinsPanel" type="PanelContainer" parent="TopBar"]
+[node name="CoinsPanel" type="PanelContainer" parent="TopBar" unique_id=1767602698]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_atewb")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/CoinsPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/CoinsPanel" unique_id=1153996255]
 layout_mode = 2
 
-[node name="CoinsIcon" type="Label" parent="TopBar/CoinsPanel/HBoxContainer"]
+[node name="CoinsIcon" type="Label" parent="TopBar/CoinsPanel/HBoxContainer" unique_id=829473207]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_2i61c")
 theme_override_font_sizes/font_size = 32
 text = "🪙"
 
-[node name="CoinsLabel" type="Label" parent="TopBar/CoinsPanel/HBoxContainer"]
+[node name="CoinsLabel" type="Label" parent="TopBar/CoinsPanel/HBoxContainer" unique_id=1203317022]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_85p0y")
 theme_override_font_sizes/font_size = 28
 text = "500"
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=1925567213]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -71,7 +72,7 @@ theme_override_font_sizes/font_size = 48
 text = "WEAPON SHOP"
 horizontal_alignment = 1
 
-[node name="WeaponScroll" type="ScrollContainer" parent="."]
+[node name="WeaponScroll" type="ScrollContainer" parent="." unique_id=1046327435]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -85,12 +86,12 @@ grow_horizontal = 2
 grow_vertical = 0
 horizontal_scroll_mode = 0
 
-[node name="WeaponContainer" type="HBoxContainer" parent="WeaponScroll"]
+[node name="WeaponContainer" type="HBoxContainer" parent="WeaponScroll" unique_id=1041029727]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="BackButton" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="." unique_id=936505213]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 1
 offset_right = 153.0
@@ -100,3 +101,20 @@ theme_override_font_sizes/font_size = 24
 action_mode = 0
 text = "⬅️ BACK"
 flat = true
+
+[node name="MessageLabel" type="Label" parent="." unique_id=792603821]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -641.0
+offset_right = 641.0
+offset_bottom = 77.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_atewb")
+theme_override_font_sizes/font_size = 28
+text = "not enough conins"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true

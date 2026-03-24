@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b0lsxpglc2t3x"]
+[gd_scene load_steps=16 format=3 uid="uid://b0lsxpglc2t3x"]
 
 [ext_resource type="Script" uid="uid://di1rj6msxa36t" path="res://scripts/player.gd" id="1_8afob"]
 [ext_resource type="PackedScene" uid="uid://bjeqblvijufr7" path="res://assets/models/player/barbarian.tscn" id="2_h17s1"]
@@ -27,12 +27,6 @@ _data = {
 radius = 0.34570313
 height = 1.5230713
 
-[sub_resource type="BoxMesh" id="BoxMesh_gmlin"]
-size = Vector3(0.2, 0.2, 0.8)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvxji"]
-albedo_color = Color(0.80813736, 3.272891e-06, 7.70092e-07, 1)
-
 [sub_resource type="TorusMesh" id="TorusMesh_lvxji"]
 inner_radius = 6.0
 outer_radius = 6.1
@@ -59,12 +53,6 @@ libraries = {
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014802694, 0.8286686, 0.13675308)
 shape = SubResource("CapsuleShape3D_x7p2l")
-
-[node name="DirectionIndicator" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44946843, -0.6)
-visible = false
-mesh = SubResource("BoxMesh_gmlin")
-surface_material_override/0 = SubResource("StandardMaterial3D_lvxji")
 
 [node name="RangeIndicator" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

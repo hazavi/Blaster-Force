@@ -110,7 +110,7 @@ func update_coins():
 		return
 	
 	if coins_label:
-		coins_label.text = "Coins: %d" % player.coins
+		coins_label.text = "🪙: %d" % player.coins
 
 
 func update_weapon():
@@ -118,4 +118,4 @@ func update_weapon():
 		return
 	
 	var weapon = upgrade_manager.get_current_weapon()
-	weapon_label.text = "🔫 %s" % weapon.name
+	weapon_label.text = "%s" % weapon.name

@@ -3,7 +3,6 @@ extends Control
 @onready var level_container = $ScrollContainer/LevelContainer
 @onready var back_button = $BackButton
 
-var level_button_scene = preload("res://scenes/ui/level_button.tscn")
 
 func _ready():
 	back_button.pressed.connect(_on_back_pressed)
@@ -36,11 +35,11 @@ func create_level_button(level_num: int) -> Button:
 	
 	# Set button text
 	if is_completed:
-		button.text = "✅ LEVEL %d\nCOMPLETED" % level_num
+		button.text = "LEVEL %d\nCOMPLETED" % level_num
 	elif is_unlocked:
-		button.text = "🔓 LEVEL %d\nPLAY" % level_num
+		button.text = "LEVEL %d\nPLAY" % level_num
 	else:
-		button.text = "🔒 LEVEL %d\nLOCKED" % level_num
+		button.text = "LEVEL %d\nLOCKED" % level_num
 	
 	button.disabled = not is_unlocked
 	

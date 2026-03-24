@@ -7,9 +7,13 @@ var upgrade_manager: Node
 @onready var weapon_container = $WeaponScroll/WeaponContainer
 @onready var back_button = $BackButton
 
+@onready var message_label = $MessageLabel 
+
 # Preload weapon card
 var weapon_card_scene = preload("res://scenes/ui/weapon_card.tscn")
 var update_pending: bool = false
+
+
 
 
 func _ready():
@@ -166,6 +170,16 @@ func add_owned_weapon_card(weapon_data: Dictionary, weapon_index: int):
 	style.set_corner_radius_all(15)
 	card.add_theme_stylebox_override("panel", style)
 
+func show_message(text: String, color: Color):
+	if not message_label:
+		return
+	message_label.text = text
+	message_label.modulate = color
+	message_label.visible = true
+
+	# Auto hide after 3 seconds
+	await get_tree().create_timer(3.0).timeout
+	message_label.visible = false
 
 func add_buyable_weapon_card(shop_index: int):
 	if weapon_card_scene == null:
@@ -212,17 +226,24 @@ func _on_upgrade_weapon(weapon_index: int, current_level: int = 0):
 	# Make sure this weapon is active
 	upgrade_manager.switch_weapon(weapon_index)
 	
-	# ✅ NEW: Directly upgrade all stats (no popup!)
 	if upgrade_manager.upgrade_all_stats():
-		print("✅ All stats upgraded!")
+		# ✅ Success
+		show_message("Weapon Upgraded!", Color.GREEN)
 	else:
-		print("❌ Not enough coins!")
+		# ❌ Not enough coins
+		var cost = upgrade_manager.get_upgrade_all_cost()
+		var have = upgrade_manager.get_coins()
+		show_message(
+			"Not enough coins! Need %d, You have %d!" % [cost, have],
+			Color.RED
+		)
 
 
 func _on_equip_weapon(weapon_index: int):
 	print("Equipping weapon at index: ", weapon_index)
 	upgrade_manager.switch_weapon(weapon_index)
-
+	var weapon_name = upgrade_manager.get_owned_weapons()[weapon_index].name
+	show_message("%s Equipped!" % weapon_name, Color.GREEN)
 
 func show_upgrade_menu():
 	var popup = AcceptDialog.new()
@@ -265,9 +286,16 @@ func show_upgrade_menu():
 	popup.popup_centered(Vector2i(500, 400))
 
 func _on_buy_weapon(shop_index: int):
-	print("Attempting to buy weapon at index: ", shop_index)
 	if upgrade_manager.buy_weapon(shop_index):
-		print("✅ Weapon purchased!")
+		var weapon_name = upgrade_manager.shop_weapons[shop_index].name
+		show_message("%s Purchased & Equipped!" % weapon_name, Color.GREEN)
+	else:
+		var cost = upgrade_manager.shop_weapons[shop_index].cost
+		var have = upgrade_manager.get_coins()
+		show_message(
+			"Not enough coins! Need %d, You have %d!" % [cost, have],
+			Color.RED
+		)
 
 
 func _on_back_pressed():

@@ -11,7 +11,7 @@ extends Camera3D
 @export var look_angle: float = -60.0  # Angle looking down (degrees)
 @export var follow_speed: float = 8.0  # How smooth the following is
 
-# === STATE ===
+# === STATE ===aaaaaaawwdddddaaaaaaaaaaaaaaaaasaw
 var target: Node3D = null
 
 # ============================================

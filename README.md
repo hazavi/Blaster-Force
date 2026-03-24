@@ -75,4 +75,3 @@ Blaster Force is a 3D top-down shooter where you battle waves of enemies, collec
 - **Language**: GDScript (99.8%), GDShader (0.2%)
 - **Architecture**: Autoload singleton pattern for managers
 - **Save System**: JSON-based persistent storage
-

@@ -4,6 +4,7 @@ extends PanelContainer
 @onready var status_label = $Content/Status
 @onready var play_button = $Content/PlayButton
 
+	
 var level_number: int = 1
 var is_unlocked: bool = false
 var is_completed: bool = false
@@ -19,17 +20,19 @@ func setup(level_num: int, unlocked: bool, completed: bool):
 	level_number_label.text = "LEVEL %d" % level_number
 	
 	if completed:
-		status_label.text = "✅ COMPLETED"
+		status_label.text = "COMPLETED"
 		status_label.modulate = Color.GREEN
 		play_button.text = "REPLAY"
 		play_button.disabled = false
+		play_button.size(150,150)
 	elif unlocked:
-		status_label.text = "🔓 UNLOCKED"
+		status_label.text = "UNLOCKED"
 		status_label.modulate = Color.YELLOW
 		play_button.text = "PLAY"
 		play_button.disabled = false
+		play_button.size(150,150)
 	else:
-		status_label.text = "🔒 LOCKED"
+		status_label.text = "LOCKED"
 		status_label.modulate = Color.GRAY
 		play_button.text = "LOCKED"
 		play_button.disabled = true
@@ -39,6 +42,7 @@ func setup(level_num: int, unlocked: bool, completed: bool):
 	if completed:
 		style.bg_color = Color(0.1, 0.3, 0.1, 0.95)
 		style.border_color = Color.GREEN
+		
 	elif unlocked:
 		style.bg_color = Color(0.2, 0.2, 0.1, 0.95)
 		style.border_color = Color.YELLOW
